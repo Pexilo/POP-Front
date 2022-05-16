@@ -10,7 +10,7 @@ export class UniversesService {
 
   constructor(private apiService: ApiService) {}
 
-  getAllUniverses(): Observable<any> {
+  getUniverses(): Observable<any> {
     return this.apiService.doGet(this.url + 'all', {
       observe: 'response',
       responseType: 'json',

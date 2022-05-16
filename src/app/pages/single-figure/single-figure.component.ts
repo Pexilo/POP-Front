@@ -1,3 +1,4 @@
+import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -21,25 +22,25 @@ export class SingleFigureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // let figureId = this.activedRoute.snapshot.params['id'];
-    // this.getFigureById(figureId);
+    //let figureId = this.activedRoute.snapshot.params['id'];
+    //this.getFigureById(this.figure.id);
   }
 
-  getFigureById(id: number): void {
-    this.figuresService.getFigureById(id).subscribe({
-      next: (res) => {
-        this.figure = res.body;
-        this.getUniverseById(this.figure.idUniverse);
-      },
-    });
-  }
+  // getFigureById(id: number): void {
+  //   this.figuresService.getFigureById(id).subscribe({
+  //     next: (res) => {
+  //       this.figure = res.body;
+  //       this.getUniverseById(this.figure.idUniverse);
+  //     },
+  //   });
+  // }
 
-  getUniverseById(id: number): void {
-    this.universesService.getUniverseById(id).subscribe({
-      next: (res) => {
-        this.universeName = res.body.name;
-        this.loaded = true;
-      },
-    });
-  }
+  // getUniverseById(id: number): void {
+  //   this.universesService.getUniverseById(id).subscribe({
+  //     next: (res) => {
+  //       this.universeName = res.body.name;
+  //       this.loaded = true;
+  //     },
+  //   });
+  // }
 }
