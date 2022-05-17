@@ -3,3 +3,16 @@
   max-width: 500px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+img {
+  cursor: pointer;
+}

@@ -2,7 +2,8 @@ import { IFigureAndUniverse } from './../../models/IFigureAndUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-single-figure',
@@ -18,7 +19,9 @@ export class SingleFigureComponent implements OnInit {
   constructor(
     private activedRoute: ActivatedRoute,
     private figuresService: FiguresService,
-    private universesService: UniversesService
+    private universesService: UniversesService,
+    private toast: NgToastService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +44,21 @@ export class SingleFigureComponent implements OnInit {
       next: (res) => {
         this.universeName = res.body.name;
         this.loaded = true;
+      },
+    });
+  }
+
+  removeFigureById(id: number): void {
+    this.universesService.removeFigureById(id).subscribe({
+      next: (res) => {
+        this.toast.success({
+          detail: 'Effectué!',
+          summary: 'Figurine supprimée',
+          duration: 2000,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       },
     });
   }

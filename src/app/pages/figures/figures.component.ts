@@ -1,9 +1,12 @@
+import { AddFigureDialogComponent } from './../misc/add-figure-dialog/add-figure-dialog.component';
+import { NgToastService } from 'ng-angular-popup';
 import { ActivatedRoute } from '@angular/router';
 import { FiguresService } from './../../services/figures.service';
 import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { Component, OnInit } from '@angular/core';
 import { IFigureAndUniverse } from 'src/app/models/IFigureAndUniverse.model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-figures',
@@ -15,9 +18,15 @@ export class FiguresComponent implements OnInit {
   universes!: IUniverse[];
   universe!: IUniverse;
 
+  name!: string;
+  imageURL!: string;
+  idUniverse!: number;
+
   constructor(
     private universesService: UniversesService,
-    private activedRoute: ActivatedRoute
+    private activedRoute: ActivatedRoute,
+    public dialog: MatDialog,
+    private toast: NgToastService
   ) {}
 
   ngOnInit(): void {
@@ -56,12 +65,35 @@ export class FiguresComponent implements OnInit {
             universeImageURL: this.universe.imageURL,
           };
         });
-
-        console.log(
-          '🚀 ~ SingleFigureComponent ~ this.figuresService.getByUniverseId ~ this.figure',
-          this.figures
-        );
       },
+    });
+  }
+
+  openAddUserDialog() {
+    const dialogRef = this.dialog.open(AddFigureDialogComponent, {
+      width: '270px',
+      data: {
+        name: this.name,
+        imageURL: this.imageURL,
+        idUniverse: this.idUniverse,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
+      this.universesService.addFigure(result).subscribe({
+        next: (res) => {
+          this.toast.success({
+            detail: 'Création de figurine',
+            summary: `La figurine ${result.name} a été créée avec succès`,
+            duration: 2000,
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        },
+      });
     });
   }
 }

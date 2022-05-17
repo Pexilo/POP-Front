@@ -24,4 +24,11 @@ export class FiguresService {
       responseType: 'json',
     });
   }
+
+  deleteFigureById(id: number): Observable<any> {
+    return this.apiService.doDelete<IFigure>(this.url + 'delete/' + id, {
+      observe: 'response',
+      responseType: 'json',
+    });
+  }
 }

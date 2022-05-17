@@ -15,9 +15,9 @@ export class ApiService {
       .get<T>(this.URLAPI + url, options)
       .pipe(retry(1), catchError(this.errorHandler));
   }
-  public doPost(url: string, body: any, options?: any) {
+  public doPost<T>(url: string, body: any, options?: any) {
     return this.http
-      .post(this.URLAPI + url, body, options)
+      .post<T>(this.URLAPI + url, body, options)
       .pipe(retry(1), catchError(this.errorHandler));
   }
   public doPut(url: string, data: any, options?: any) {
@@ -25,9 +25,9 @@ export class ApiService {
       .put(this.URLAPI + url, data, options)
       .pipe(retry(1), catchError(this.errorHandler));
   }
-  public doDelete(url: string, options?: any) {
+  public doDelete<T>(url: string, options?: any) {
     return this.http
-      .delete(this.URLAPI + url, options)
+      .delete<T>(this.URLAPI + url, options)
       .pipe(retry(1), catchError(this.errorHandler));
   }
 

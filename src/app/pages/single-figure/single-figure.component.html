@@ -9,7 +9,7 @@
           <mat-icon>edit</mat-icon>
           <span>Modifier</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="removeFigureById(figure.id)">
           <mat-icon>delete</mat-icon>
           <span>Supprimer</span>
         </button>
