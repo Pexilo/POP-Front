@@ -1,0 +1,26 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>{{ universe.name }} </mat-card-title>
+    <mat-card-subtitle
+      >{{ universe.figures.length }} Figurines</mat-card-subtitle
+    >
+  </mat-card-header>
+  <img mat-card-image [src]="universe.imageURL" alt="figure" />
+  <mat-card-actions>
+    <button mat-button [matMenuTriggerFor]="afterMenu">
+      <mat-icon>list</mat-icon>
+    </button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+      <button
+        mat-menu-item
+        *ngFor="let figure of universe.figures"
+        (click)="onSelectMenu(figure.id)"
+      >
+        {{ figure.name }}
+      </button>
+    </mat-menu>
+    <button mat-button (click)="onSelectUniverse(universe.id)">
+      VOIR TOUT
+    </button>
+  </mat-card-actions>
+</mat-card>

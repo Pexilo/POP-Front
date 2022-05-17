@@ -1,7 +1,13 @@
+.container {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+}
+
 .card {
   margin: 20px 20px 20px 0;
   max-width: 200px;
-  height: 370px;
+  height: 350px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

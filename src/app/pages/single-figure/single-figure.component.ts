@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SingleFigureComponent implements OnInit {
   @Input() figure!: IFigureAndUniverse;
   universeName!: string;
+  figureId!: number;
   loaded!: boolean;
 
   constructor(
@@ -21,25 +22,26 @@ export class SingleFigureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //let figureId = this.activedRoute.snapshot.params['id'];
-    //this.getFigureById(this.figure.id);
+    this.figureId = this.activedRoute.snapshot.params['idFigure'];
+    //si c'est un affichage single ou si c'est la liste (pour pas bloquer le chargement)
+    this.figureId ? this.getFigureById(this.figureId) : (this.loaded = true);
   }
 
-  // getFigureById(id: number): void {
-  //   this.figuresService.getFigureById(id).subscribe({
-  //     next: (res) => {
-  //       this.figure = res.body;
-  //       this.getUniverseById(this.figure.idUniverse);
-  //     },
-  //   });
-  // }
+  getFigureById(id: number): void {
+    this.figuresService.getFigureById(id).subscribe({
+      next: (res) => {
+        this.figure = res.body;
+        this.getUniverseById(this.figure.idUniverse);
+      },
+    });
+  }
 
-  // getUniverseById(id: number): void {
-  //   this.universesService.getUniverseById(id).subscribe({
-  //     next: (res) => {
-  //       this.universeName = res.body.name;
-  //       this.loaded = true;
-  //     },
-  //   });
-  // }
+  getUniverseById(id: number): void {
+    this.universesService.getUniverseById(id).subscribe({
+      next: (res) => {
+        this.universeName = res.body.name;
+        this.loaded = true;
+      },
+    });
+  }
 }

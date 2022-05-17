@@ -1,1 +1,6 @@
-<p>universes works!</p>
+<div class="container">
+  <app-single-universe
+    *ngFor="let universe of universes"
+    [universe]="universe"
+  ></app-single-universe>
+</div>
