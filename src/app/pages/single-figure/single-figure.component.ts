@@ -1,9 +1,8 @@
-import { IUniverse } from './../../models/IUniverse.model';
+import { IFigureAndUniverse } from './../../models/IFigureAndUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IFigure } from 'src/app/models/IFigure.model';
 
 @Component({
   selector: 'app-single-figure',
@@ -11,7 +10,7 @@ import { IFigure } from 'src/app/models/IFigure.model';
   styleUrls: ['./single-figure.component.scss'],
 })
 export class SingleFigureComponent implements OnInit {
-  @Input() figure!: IFigure;
+  @Input() figure!: IFigureAndUniverse;
   universeName!: string;
   loaded!: boolean;
 

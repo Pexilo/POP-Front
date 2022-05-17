@@ -10,9 +10,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  public doGet(url: string, options?: any) {
+  public doGet<T>(url: string, options?: any) {
     return this.http
-      .get(this.URLAPI + url, options)
+      .get<T>(this.URLAPI + url, options)
       .pipe(retry(1), catchError(this.errorHandler));
   }
   public doPost(url: string, body: any, options?: any) {

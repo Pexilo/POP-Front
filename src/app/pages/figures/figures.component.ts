@@ -1,8 +1,8 @@
 import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
-import { IFigure } from 'src/app/models/IFigure.model';
 import { Component, OnInit } from '@angular/core';
+import { IFigureAndUniverse } from 'src/app/models/IFigureAndUniverse.model';
 
 @Component({
   selector: 'app-figures',
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./figures.component.scss'],
 })
 export class FiguresComponent implements OnInit {
-  figures!: IFigure[];
+  figures: IFigureAndUniverse[] = [];
   universes!: IUniverse[];
 
   constructor(
@@ -19,7 +19,7 @@ export class FiguresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFigures();
+    //this.getFigures();
     this.getUniverses();
   }
 
@@ -35,11 +35,23 @@ export class FiguresComponent implements OnInit {
     this.universesService.getUniverses().subscribe({
       next: (res) => {
         this.universes = res.body;
+        console.log(
+          '🚀 ~ FiguresComponent ~ this.universesService.getUniverses ~ res.body',
+          res.body
+        );
 
-        // for (let i = 0; i < this.universes.length; i++) {
-        //   this.figures = this.universes[i].figures;
-        // }
-        // console.log(this.figures);
+        for (let i = 0; i < this.universes.length; i++) {
+          for (let j = 0; j < this.universes[i].figures.length; j++) {
+            this.figures.push({
+              id: this.universes[i].figures[j].id,
+              name: this.universes[i].figures[j].name,
+              imageURL: this.universes[i].figures[j].imageURL,
+              idUniverse: this.universes[i].figures[j].idUniverse,
+              universeName: this.universes[i].name,
+              universeImageURL: this.universes[i].imageURL,
+            });
+          }
+        }
       },
     });
   }
