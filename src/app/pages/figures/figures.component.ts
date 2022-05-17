@@ -19,16 +19,7 @@ export class FiguresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //this.getFigures();
     this.getUniverses();
-  }
-
-  getFigures(): void {
-    this.figuresService.getFigures().subscribe({
-      next: (res) => {
-        this.figures = res.body;
-      },
-    });
   }
 
   getUniverses(): void {
@@ -36,22 +27,19 @@ export class FiguresComponent implements OnInit {
       next: (res) => {
         this.universes = res.body;
         console.log(
-          '🚀 ~ FiguresComponent ~ this.universesService.getUniverses ~ res.body',
-          res.body
+          '🚀 ~ FiguresComponent ~ this.universesService.getUniverses ~ this.universes',
+          this.universes
         );
 
-        for (let i = 0; i < this.universes.length; i++) {
-          for (let j = 0; j < this.universes[i].figures.length; j++) {
+        this.universes.forEach((universe) => {
+          universe.figures.forEach((figure) => {
             this.figures.push({
-              id: this.universes[i].figures[j].id,
-              name: this.universes[i].figures[j].name,
-              imageURL: this.universes[i].figures[j].imageURL,
-              idUniverse: this.universes[i].figures[j].idUniverse,
-              universeName: this.universes[i].name,
-              universeImageURL: this.universes[i].imageURL,
+              ...figure,
+              universeName: universe.name,
+              universeImageURL: universe.imageURL,
             });
-          }
-        }
+          });
+        });
       },
     });
   }
