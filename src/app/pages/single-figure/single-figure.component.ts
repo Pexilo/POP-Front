@@ -62,4 +62,8 @@ export class SingleFigureComponent implements OnInit {
       },
     });
   }
+
+  onSelectUniverse(IdUniverse: number): void {
+    this.router.navigate(['/universe', IdUniverse]);
+  }
 }

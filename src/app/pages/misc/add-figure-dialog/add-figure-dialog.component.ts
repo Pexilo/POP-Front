@@ -12,14 +12,24 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class AddFigureDialogComponent implements OnInit {
   universes!: IUniverse[];
-  disableSelect = new FormControl(false);
+
   reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   name = new FormControl('', [Validators.required]);
+  idUniverse = new FormControl('', [Validators.required]);
   imageURL = new FormControl('', [
     Validators.required,
     Validators.pattern(this.reg),
   ]);
-  idUniverse = new FormControl('', [Validators.required]);
+
+  constructor(
+    public dialogRef: MatDialogRef<AddFigureDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public figure: IFigure,
+    private universesService: UniversesService
+  ) {}
+
+  ngOnInit(): void {
+    this.getUniverses();
+  }
 
   getErrorMessage(field: string) {
     if (this.imageURL.hasError('pattern') && field === 'imageURL') {
@@ -36,18 +46,15 @@ export class AddFigureDialogComponent implements OnInit {
     return '';
   }
 
-  constructor(
-    public dialogRef: MatDialogRef<AddFigureDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public figure: IFigure,
-    private universesService: UniversesService
-  ) {}
-
-  ngOnInit(): void {
-    this.getUniverses();
-  }
-
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onAddClick(): void {
+    this.figure.name = this.name.value;
+    this.figure.imageURL = this.imageURL.value;
+    this.figure.idUniverse = this.idUniverse.value;
+    this.dialogRef.close(this.figure);
   }
 
   getUniverses(): void {
@@ -56,17 +63,5 @@ export class AddFigureDialogComponent implements OnInit {
         this.universes = res.body;
       },
     });
-  }
-
-  isValidHttpUrl(imageURL: string) {
-    let url;
-
-    try {
-      url = new URL(imageURL);
-    } catch (_) {
-      return false;
-    }
-
-    return url.protocol === 'http:' || url.protocol === 'https:';
   }
 }

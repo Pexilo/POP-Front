@@ -31,4 +31,11 @@ export class FiguresService {
       responseType: 'json',
     });
   }
+
+  createFigure(figure: IFigure): Observable<any> {
+    return this.apiService.doPost<IFigure>(this.url + 'create', figure, {
+      observe: 'response',
+      responseType: 'json',
+    });
+  }
 }

@@ -1,9 +1,9 @@
-<h1 mat-dialog-title>Ajouter une Figurine</h1>
+<h1 mat-dialog-title>Ajouter un Univers</h1>
 <div mat-dialog-content>
   <mat-form-field>
     <input
       matInput
-      [value]="figure.name"
+      [value]="universe.name"
       [formControl]="name"
       placeholder="Nom"
       required
@@ -13,7 +13,7 @@
   <mat-form-field>
     <input
       matInput
-      [value]="figure.imageURL"
+      [value]="universe.imageURL"
       [formControl]="imageURL"
       placeholder="Image (lien)"
       type="url"
@@ -23,17 +23,6 @@
       getErrorMessage("imageURL")
     }}</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Choose an option</mat-label>
-    <mat-select [value]="figure.idUniverse" [formControl]="idUniverse" required>
-      <mat-option *ngFor="let universe of universes" [value]="universe.id">{{
-        universe.name
-      }}</mat-option>
-    </mat-select>
-    <mat-error *ngIf="idUniverse.invalid">{{
-      getErrorMessage("idUniverse")
-    }}</mat-error>
-  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-stroked-button color="warn" (click)="onNoClick()">Annuler</button>
@@ -41,11 +30,7 @@
     class="btn-add"
     mat-flat-button
     (click)="onAddClick()"
-    [disabled]="
-      name.status === 'INVALID' ||
-      imageURL.status === 'INVALID' ||
-      idUniverse.status === 'INVALID'
-    "
+    [disabled]="name.status === 'INVALID' || imageURL.status === 'INVALID'"
   >
     Ajouter
   </button>

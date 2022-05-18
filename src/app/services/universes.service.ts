@@ -26,6 +26,13 @@ export class UniversesService {
     });
   }
 
+  removeUniverseById(id: number): Observable<any> {
+    return this.apiService.doDelete<IUniverse>(this.url + 'delete/' + id, {
+      observe: 'response',
+      responseType: 'json',
+    });
+  }
+
   removeFigureById(id: number): Observable<any> {
     return this.apiService.doDelete<IUniverse>(
       this.url + 'removeFigure/' + id,
@@ -38,6 +45,13 @@ export class UniversesService {
 
   addFigure(figure: IFigure): Observable<any> {
     return this.apiService.doPost<IFigure>(this.url + 'addFigure', figure, {
+      observe: 'response',
+      responseType: 'json',
+    });
+  }
+
+  createUniverse(universe: IUniverse): Observable<any> {
+    return this.apiService.doPost<IUniverse>(this.url + 'create', universe, {
       observe: 'response',
       responseType: 'json',
     });

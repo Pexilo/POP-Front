@@ -1,14 +1,10 @@
 <div [ngClass]="{ container: figureId }">
-  <mat-card class="card" *ngIf="loaded">
+  <mat-card class="card">
     <mat-card-header>
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>edit</mat-icon>
-          <span>Modifier</span>
-        </button>
         <button mat-menu-item (click)="removeFigureById(figure.id)">
           <mat-icon>delete</mat-icon>
           <span>Supprimer</span>
@@ -20,6 +16,7 @@
         [ngStyle]="{
           'background-image': 'url(' + figure.universeImageURL + ')'
         }"
+        (click)="onSelectUniverse(figure.idUniverse)"
       ></div>
       <mat-card-title>{{ figure.name }} </mat-card-title>
       <mat-card-subtitle>{{ figure.universeName }}</mat-card-subtitle>

@@ -14,6 +14,7 @@ import { SingleFigureComponent } from './pages/single-figure/single-figure.compo
 import { UniversesComponent } from './pages/universes/universes.component';
 import { SingleUniverseComponent } from './pages/single-universe/single-universe.component';
 import { AddFigureDialogComponent } from './pages/misc/add-figure-dialog/add-figure-dialog.component';
+import { AddUniverseDialogComponent } from './pages/misc/add-universe-dialog/add-universe-dialog.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,6 +36,7 @@ import { MatInputModule } from '@angular/material/input';
     UniversesComponent,
     SingleUniverseComponent,
     AddFigureDialogComponent,
+    AddUniverseDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,6 @@ import { MatInputModule } from '@angular/material/input';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddFigureDialogComponent],
+  entryComponents: [AddFigureDialogComponent, AddUniverseDialogComponent],
 })
 export class AppModule {}

@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
   <img src="/assets/groupeAEN.png" />
   <span>Gaël MASSART</span>
+  <button mat-raised-button routerLink="universes" (click)="inserts()">
+    <mat-icon>dns</mat-icon> INSERTS BDD
+  </button>
+  <mat-label> <- conseillé au premier lancement</mat-label>
   <span class="spacer"></span>
   <mat-icon>movie</mat-icon>
   <button mat-stroked-button routerLink="universes">Univers</button>

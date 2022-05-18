@@ -1,6 +1,7 @@
+import { IFigure } from 'src/app/models/IFigure.model';
 import { AddFigureDialogComponent } from './../misc/add-figure-dialog/add-figure-dialog.component';
 import { NgToastService } from 'ng-angular-popup';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FiguresService } from './../../services/figures.service';
 import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
@@ -31,7 +32,6 @@ export class FiguresComponent implements OnInit {
 
   ngOnInit(): void {
     let universeId = this.activedRoute.snapshot.params['idUniverse'];
-    console.log('🚀 ~ FiguresComponent ~ ngOnInit ~ universeId', universeId);
     universeId ? this.getByUniverseId(universeId) : this.getUniverses();
   }
 
@@ -69,7 +69,7 @@ export class FiguresComponent implements OnInit {
     });
   }
 
-  openAddUserDialog() {
+  openAddFigureDialog() {
     const dialogRef = this.dialog.open(AddFigureDialogComponent, {
       width: '270px',
       data: {
@@ -79,8 +79,12 @@ export class FiguresComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: IFigure) => {
       if (!result) return;
+      console.log(
+        '🚀 ~ FiguresComponent ~ dialogRef.afterClosed ~ result',
+        result
+      );
 
       this.universesService.addFigure(result).subscribe({
         next: (res) => {
