@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { IFigureAndUniverse } from './../../models/IFigureAndUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
@@ -14,7 +15,6 @@ export class SingleFigureComponent implements OnInit {
   @Input() figure!: IFigureAndUniverse;
   universeName!: string;
   figureId!: number;
-  loaded!: boolean;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -27,7 +27,7 @@ export class SingleFigureComponent implements OnInit {
   ngOnInit(): void {
     this.figureId = this.activedRoute.snapshot.params['idFigure'];
     //si c'est un affichage single ou si c'est la liste (pour pas bloquer le chargement)
-    this.figureId ? this.getFigureById(this.figureId) : (this.loaded = true);
+    if (this.figureId) this.getFigureById(this.figureId);
   }
 
   getFigureById(id: number): void {
@@ -43,7 +43,6 @@ export class SingleFigureComponent implements OnInit {
     this.universesService.getUniverseById(id).subscribe({
       next: (res) => {
         this.universeName = res.body.name;
-        this.loaded = true;
       },
     });
   }

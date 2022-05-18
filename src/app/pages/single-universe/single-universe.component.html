@@ -16,6 +16,7 @@
       mat-button
       title="Nom des figurines"
       [matMenuTriggerFor]="afterMenu"
+      [disabled]="universe.figures.length === 0"
     >
       <mat-icon>list</mat-icon>
     </button>
@@ -32,6 +33,7 @@
       mat-button
       title="Voir plus"
       (click)="onSelectUniverse(universe.id)"
+      [disabled]="universe.figures.length === 0"
     >
       <mat-icon>remove_red_eye</mat-icon>
     </button>

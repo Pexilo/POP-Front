@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { IFigure } from 'src/app/models/IFigure.model';
 import { AddFigureDialogComponent } from './../misc/add-figure-dialog/add-figure-dialog.component';
 import { NgToastService } from 'ng-angular-popup';
@@ -26,7 +27,8 @@ export class FiguresComponent implements OnInit {
     private universesService: UniversesService,
     private activedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {

@@ -1,4 +1,3 @@
-import { NgToastService } from 'ng-angular-popup';
 import { IFigure } from 'src/app/models/IFigure.model';
 import { Demo } from './../../../../assets/demo';
 import { IUniverse } from 'src/app/models/IUniverse.model';
