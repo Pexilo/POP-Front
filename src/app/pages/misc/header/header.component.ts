@@ -4,6 +4,7 @@ import { Demo } from './../../../../assets/demo';
 import { IUniverse } from 'src/app/models/IUniverse.model';
 import { UniversesService } from './../../../services/universes.service';
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private universesService: UniversesService,
     private demo: Demo,
-    private toast: NgToastService
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {}
@@ -28,30 +29,20 @@ export class HeaderComponent implements OnInit {
     this.figures = this.demo.getDemoFigures();
 
     for (const universe of this.universes) {
+      this.spinner.show();
       await this.resolveAfter1s();
 
-      this.universesService.createUniverse(universe).subscribe({
-        next: (data) => {
-          this.toast.info({
-            detail: 'Nouvel univers',
-            summary: `${data.body.name} a été créée avec succès`,
-          });
-        },
-      });
+      this.universesService
+        .createUniverse(universe)
+        .subscribe({ next: () => {} });
     }
 
     for (const figure of this.figures) {
       await this.resolveAfter1s();
 
-      this.universesService.addFigure(figure).subscribe({
-        next: (data) => {
-          this.toast.info({
-            detail: 'Nouvelle figurine',
-            summary: `${data.body.name} a été créée avec succès`,
-          });
-        },
-      });
+      this.universesService.addFigure(figure).subscribe({ next: () => {} });
     }
+    this.spinner.hide();
     window.location.reload();
   }
 

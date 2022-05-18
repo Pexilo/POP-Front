@@ -2,7 +2,6 @@ import { IFigure } from 'src/app/models/IFigure.model';
 import { AddFigureDialogComponent } from './../misc/add-figure-dialog/add-figure-dialog.component';
 import { NgToastService } from 'ng-angular-popup';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FiguresService } from './../../services/figures.service';
 import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { Component, OnInit } from '@angular/core';
