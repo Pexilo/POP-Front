@@ -9,8 +9,8 @@ import { IUniverse } from 'src/app/models/IUniverse.model';
   templateUrl: './single-universe.component.html',
   styleUrls: ['./single-universe.component.scss'],
 })
-export class SingleUniverseComponent implements OnInit {
-  @Input() universe!: IUniverse;
+export class SingleUniverseComponent {
+  @Input() universe!: IUniverse; // Décorateur qui permet de transmettre des données du composant parent au composant enfant.
 
   constructor(
     private route: Router,
@@ -18,16 +18,19 @@ export class SingleUniverseComponent implements OnInit {
     private toast: NgToastService
   ) {}
 
-  ngOnInit(): void {}
-
-  onSelectMenu(IdFigure: number) {
-    this.route.navigate(['/figure/' + IdFigure]);
-  }
-
+  /**
+   * La fonction prend un IdUniverse comme paramètre, puis navigue vers le composant d'univers avec
+   * l'IdUniverse comme paramètre
+   * @param {number} IdUniverse - number - l'id de l'univers
+   */
   onSelectUniverse(IdUniverse: number) {
     this.route.navigate(['/universe/' + IdUniverse]);
   }
 
+  /**
+   * Supprime un univers par son id
+   * @param {number} IdUniverse - number - l'id de l'univers à supprimer
+   */
   removeUniverseById(IdUniverse: number) {
     this.universesService.removeUniverseById(IdUniverse).subscribe({
       next: (res) => {

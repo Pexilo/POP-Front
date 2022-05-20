@@ -1,4 +1,6 @@
-export interface IFigureAndUniverse {
+//ce modèle permet d'afficher correctement les cartes des figurines
+
+export interface IFigureCard {
   id: number;
   name: string;
   imageURL: string;

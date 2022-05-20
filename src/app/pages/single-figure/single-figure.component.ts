@@ -1,5 +1,4 @@
-import { NgxSpinnerService } from 'ngx-spinner';
-import { IFigureAndUniverse } from './../../models/IFigureAndUniverse.model';
+import { IFigureCard } from './../../models/IFigureCard.model';
 import { UniversesService } from './../../services/universes.service';
 import { FiguresService } from './../../services/figures.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,7 +11,8 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./single-figure.component.scss'],
 })
 export class SingleFigureComponent implements OnInit {
-  @Input() figure!: IFigureAndUniverse;
+  @Input() figure!: IFigureCard; // Décorateur qui permet de passer des données du composant parent au composant enfant.
+
   universeName!: string;
   figureId!: number;
 
@@ -25,11 +25,15 @@ export class SingleFigureComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Récupération de l'id de la figure si elle est passée en paramètre dans l'url
     this.figureId = this.activedRoute.snapshot.params['idFigure'];
-    //si c'est un affichage single ou si c'est la liste (pour pas bloquer le chargement)
-    if (this.figureId) this.getFigureById(this.figureId);
+    if (this.figureId) this.getFigureById(this.figureId); // Si l'id est passé en paramètre, on récupère la figure
   }
 
+  /**
+   * Obtient une figure par son id, puis obtient l'univers de cette figure
+   * @param {number} id - number - L'id de la figurine à obtenir.
+   */
   getFigureById(id: number): void {
     this.figuresService.getFigureById(id).subscribe({
       next: (res) => {
@@ -39,6 +43,10 @@ export class SingleFigureComponent implements OnInit {
     });
   }
 
+  /**
+   * Cette fonction prend un id, puis utilise cet id pour obtenir le nom de l'univers
+   * @param {number} id - number - L'id de l'univers à obtenir.
+   */
   getUniverseById(id: number): void {
     this.universesService.getUniverseById(id).subscribe({
       next: (res) => {
@@ -47,6 +55,10 @@ export class SingleFigureComponent implements OnInit {
     });
   }
 
+  /**
+   * Supprime une figurine de l'api par son id
+   * @param {number} id - number - L'id de la figurine à supprimer.
+   */
   removeFigureById(id: number): void {
     this.universesService.removeFigureById(id).subscribe({
       next: (res) => {
@@ -56,12 +68,17 @@ export class SingleFigureComponent implements OnInit {
           duration: 2000,
         });
         setTimeout(() => {
-          window.location.reload();
+          window.location.reload(); // Rafraichit la page pour mettre à jour les données
         }, 2000);
       },
     });
   }
 
+  /**
+   * La fonction prend un IdUniverse comme paramètre et navigue vers le composant d'univers avec
+   * l'IdUniverse comme paramètre
+   * @param {number} IdUniverse - number - L'id de l'univers à afficher.
+   */
   onSelectUniverse(IdUniverse: number): void {
     this.router.navigate(['/universe', IdUniverse]);
   }

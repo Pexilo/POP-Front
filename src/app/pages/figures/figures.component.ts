@@ -1,4 +1,4 @@
-import { NgxSpinnerService } from 'ngx-spinner';
+import { IFigureCard } from './../../models/IFigureCard.model';
 import { IFigure } from 'src/app/models/IFigure.model';
 import { AddFigureDialogComponent } from './../misc/add-figure-dialog/add-figure-dialog.component';
 import { NgToastService } from 'ng-angular-popup';
@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { IUniverse } from './../../models/IUniverse.model';
 import { UniversesService } from './../../services/universes.service';
 import { Component, OnInit } from '@angular/core';
-import { IFigureAndUniverse } from 'src/app/models/IFigureAndUniverse.model';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -15,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./figures.component.scss'],
 })
 export class FiguresComponent implements OnInit {
-  figures: IFigureAndUniverse[] = []; // liste pour l'affichage des figures, interface différente pour ajouter des infos sur l'univers associé
+  figures: IFigureCard[] = []; // liste pour l'affichage des figures, interface différente pour ajouter des infos sur l'univers associé
   universes!: IUniverse[]; // liste des univers, (j'utilise la liste figures dans univers pour afficher mes figurines)
   universe!: IUniverse; // dans le cas où on a un univers, on récupère les figures de l'univers
 
@@ -82,9 +81,8 @@ export class FiguresComponent implements OnInit {
   }
 
   /**
-   * la fonction addFigure() permet d'ajouter une figurine à l'univers
-   * Le formulaire est envoyé à l'universService, qui l'ajoute à l'univers
-   * Puis, on récupère les figures de l'univers, et on les ajoute à la liste
+   * la fonction openAddFigureDialog() permet d'ajouter une figurine à l'univers
+   * Le formulaire est envoyé à l'universService, qui l'ajoute à l'univers grâce à l'api
    */
   openAddFigureDialog() {
     const dialogRef = this.dialog.open(AddFigureDialogComponent, {
@@ -98,10 +96,6 @@ export class FiguresComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: IFigure) => {
       if (!result) return;
-      console.log(
-        '🚀 ~ FiguresComponent ~ dialogRef.afterClosed ~ result',
-        result
-      );
 
       this.universesService.addFigure(result).subscribe({
         next: (res) => {

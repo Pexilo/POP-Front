@@ -24,9 +24,13 @@ export class UniversesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUniverses();
+    this.getUniverses(); // affiche tous les univers
   }
 
+  /**
+   * La fonction appelle la fonction getUniverses() de l'universsService, qui renvoie un observable.
+   * qui va par la suite affecter la réponse à la variable d'univers
+   */
   getUniverses(): void {
     this.universesService.getUniverses().subscribe({
       next: (res) => {
@@ -35,6 +39,10 @@ export class UniversesComponent implements OnInit {
     });
   }
 
+  /**
+   * la fonction openAddUniverseDialog() permet d'ajouter un univers à la liste des univers
+   * Le formulaire est envoyé à l'universService, qui va l'ajouter grâce à l'api
+   */
   openAddUniverseDialog() {
     const dialogRef = this.dialog.open(AddUniverseDialogComponent, {
       width: '270px',

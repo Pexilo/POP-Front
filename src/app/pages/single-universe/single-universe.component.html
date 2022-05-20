@@ -23,8 +23,8 @@
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button
         mat-menu-item
+        class="menu-btn"
         *ngFor="let figure of universe.figures"
-        (click)="onSelectMenu(figure.id)"
       >
         {{ figure.name }}
       </button>
