@@ -101,7 +101,7 @@ export class FiguresComponent implements OnInit {
         next: (res) => {
           this.toast.success({
             detail: 'Création de figurine',
-            summary: `La figurine ${result.name} a été créée avec succès`,
+            summary: `${result.name} créée avec succès`,
             duration: 2000,
           });
           setTimeout(() => {

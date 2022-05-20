@@ -59,7 +59,7 @@ export class UniversesComponent implements OnInit {
         next: (res) => {
           this.toast.success({
             detail: "Création d'univers",
-            summary: `L'univers ${result.name} a été créé avec succès`,
+            summary: `${result.name} créé avec succès`,
             duration: 2000,
           });
           setTimeout(() => {
